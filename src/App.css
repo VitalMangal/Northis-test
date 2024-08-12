@@ -2,10 +2,155 @@
   text-align: center;
 }
 
+.greeting {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+}
+
 .container {
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  background-color: #00838F;
+}
+
+form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+input {
+  height: 42px;
+  width: 912px;
+  border-radius: 5px;
+}
+
+/* поменять оформление кнопки и инпута */
+
+.search-btn {
+  height: 42px;
+  width: 105px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  background: #0B63F6;
+  box-shadow: 0 5px 0 #003CC5;
+}
+
+.search-btn:hover {
+  background: #003CC5;
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+
+footer {
+  width: 100%;
+  height: 32px;
+  background-color: #4F4F4F;
+  margin-top: auto;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.repo_list p {
+  font-size: xxx-large;
+  margin-top: 0px;
+  margin-bottom: 30px;
+
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 960px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.repo-description {
+  width: 480px;
+  height: 100%;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
+}
+
+.repo_list {
+  width: 100%;
+  height: 100%;
+  padding-left: 30px;
+  padding-top: 30px;
+}
+
+.pages {
+  width: 100%;
+  height: 52px;
+  margin-top: auto;
+
+  background-color: #b2f2d2;
+}
+
+.table_head {
+  width: 912px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.table_body {
+  width: 912px;
+  height: 100%;
+}
+
+.table_title {
+  width: 20%;
+  height: 100%;
+  vertical-align: text-bottom;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  width: 100%;
+  height: 52px;
+  list-style-type: none;
+}
+
+.repo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.repo_item {
+  width: 20%;
+}
+
+.repo-description-name {
+  font-size: xx-large;
 }
