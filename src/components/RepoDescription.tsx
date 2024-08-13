@@ -9,7 +9,7 @@ const RepoDescription = ({activeRepo}: PropsType) => {
 
   if(!activeRepo) {
     return (
-      <div className="greeting">
+      <div className="greeting repo-description">
         <p>Выберите репозиторий</p>
       </div>
     )
