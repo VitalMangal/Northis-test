@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import RepoList from './components/RepoList';
+import RepoList from './components/RepoList/RepoList';
 import { useGetRepositoriesQuery } from './store';
-import RepoDescription from './components/RepoDescription';
-import Pages from './components/Pages';
+import RepoDescription from './components/RepoDescription/RepoDescription';
+//import Pages from './components/Pages';
+import TablePagination from '@mui/material/TablePagination';
 
 const defaultPerPage = 10;
 
@@ -37,11 +38,20 @@ function App() {
     setInputValue(e.target.value)
   }
 
-  const handle_setPer_page = (value: any) => {
-    const newPageNumber = Math.ceil(((page - 1) * per_page + 1) / value);
-    setPage(newPageNumber);
-    setPer_page(value);
-  }
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setPer_page(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
 
   return (
     <div className="container">
@@ -62,13 +72,14 @@ function App() {
         : <main>
             <div className="list-container">
               <RepoList data={data} setActiveRepo={setActiveRepo} setSort={setSort}/>
-              <Pages
-                per_page={per_page}
-                setPer_page={handle_setPer_page}
-                data={data}
-                page={page}
-                setPage={setPage}
-              />
+              <TablePagination
+              component="div"
+              count={100}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={per_page}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
             </div>
             <RepoDescription activeRepo={activeRepo}/>
           </main>
@@ -79,3 +90,18 @@ function App() {
 }
 
 export default App;
+/*
+  const handle_setPer_page = (value: any) => {
+    const newPageNumber = Math.ceil(((page - 1) * per_page + 1) / value);
+    setPage(newPageNumber);
+    setPer_page(value);
+  }
+
+              <Pages
+                per_page={per_page}
+                setPer_page={handle_setPer_page}
+                data={data}
+                page={page}
+                setPage={setPage}
+              />
+              */

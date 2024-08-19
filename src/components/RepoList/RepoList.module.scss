@@ -1,0 +1,22 @@
+.searchResult {
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56.02px;
+  margin: 10px;
+}
+
+.dataGridContainer {
+  width: 100%;
+  height: calc(100vh - 208px);
+
+  .dataGrid {
+    border: none;
+  }
+}
+
+.zero_result {
+  position:relative;
+  top: 50px;
+  left: 50px;
+  font-size: x-large;
+}

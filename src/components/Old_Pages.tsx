@@ -9,7 +9,7 @@ interface PropsType {
 }
 
 
-const Pages = ({ per_page, setPer_page, data, page, setPage }: PropsType) => {
+export const Pages = ({ per_page, setPer_page, data, page, setPage }: PropsType) => {
 
   const { total_count } = data;
 
@@ -35,17 +35,15 @@ const Pages = ({ per_page, setPer_page, data, page, setPage }: PropsType) => {
       <div className="pagination">
         <button onClick={() => setPage(page - 1)} disabled={page === 1} className="pagination_btn page_down">
           <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.70504 1.41L6.29504 0L0.295044 6L6.29504 12L7.70504 10.59L3.12504 6L7.70504 1.41Z" fill="black" fill-opacity="0.56"/>
+            <path d="M7.70504 1.41L6.29504 0L0.295044 6L6.29504 12L7.70504 10.59L3.12504 6L7.70504 1.41Z" fill="black" fillOpacity="0.56"/>
           </svg>
         </button>
         <button onClick={() => setPage(page + 1)} disabled={page === Math.ceil(total_count / per_page)} className="pagination_btn page_up">
           <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" fill="black" fill-opacity="0.56"/>
+            <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" fill="black" fillOpacity="0.56"/>
           </svg>
         </button>
       </div>
     </div>
   )
 };
-
-export default Pages;

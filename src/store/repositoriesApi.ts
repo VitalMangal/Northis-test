@@ -8,14 +8,10 @@ export const repositoriesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
     getRepositories: builder.query({
-      query: ({ q, per_page, page, sort }: any) => ({
+      query: ({ q, per_page, page, sort, order }: any) => ({
         url: '',
-        params: {
-          q,
-          per_page,
-          page,
-          sort,
-        }
+        params: { q, per_page, page, sort, order },
+        headers: { "Accept": 'application/vnd.github+json' },
       }),
     }),
   }),
