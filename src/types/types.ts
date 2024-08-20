@@ -42,7 +42,7 @@ export type FormattedResponse = {
   items: FormattedItem[],
 }
 
-//Пропсы
+// Пропсы
 
 export type ErrorType = {
   error: FetchBaseQueryError | SerializedError | undefined

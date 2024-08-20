@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import { DataGrid, GridRowsProp, GridColDef, GridSortModel, GridRowSelectionModel, GridRowId } from '@mui/x-data-grid';
-import { CssBaseline, Box, Input, TextField, Button, Typography } from '@mui/material';
+import {useState, useEffect} from 'react';
+import { DataGrid, GridRowsProp, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import { Box, Typography } from '@mui/material';
 
 import styles from './RepoList.module.scss'
 import { RepoListPropsType } from '../../types';
@@ -14,7 +14,6 @@ export const RepoList = ({data,
                 }:RepoListPropsType ) => {
   
   const [activeRepoId, setActiveRepoId] = useState<GridRowSelectionModel>([]);
-
   const [paginationModel, setPaginationModel] = useState({
     page: page,
     pageSize: per_page,
@@ -34,13 +33,14 @@ export const RepoList = ({data,
   const {items, total_count  } = data;
 
   if(items.length === 0) {
-    return  <Typography variant="body2" className={styles.zero_result}>
-              Не нашлось ни одного репозитория с таким названием
-            </Typography>
+    return  (
+      <Typography variant="body2" className={styles.zero_result}>
+        Не нашлось ни одного репозитория с таким названием
+      </Typography>
+    )
   }
 
   const rows: GridRowsProp = items;
-
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Название', sortable: false, flex: 0.2 },
     { field: 'language', headerName: 'Язык', sortable: false, flex: 0.2 },
@@ -57,11 +57,11 @@ export const RepoList = ({data,
       <Box className={styles.dataGridContainer}>      
         <DataGrid 
           className={styles.dataGrid}
+          loading={isLoading}
 
           rows={rows}
           columns={columns}
 
-          loading={isLoading}
           // Пагинация
           rowCount={total_count}
           pageSizeOptions={[10, 15, 20, 50]}
@@ -69,8 +69,8 @@ export const RepoList = ({data,
           paginationMode="server"
           onPaginationModelChange={setPaginationModel}
 
-          //Описание
-          keepNonExistentRowsSelected // Оставить выбранное описание
+          //Описание репозитория
+          keepNonExistentRowsSelected // Оставить выбранное описание после перелистывания
           onRowSelectionModelChange={(newRowSelectionModel) => {
             handleChange(newRowSelectionModel);
           }}
@@ -81,8 +81,6 @@ export const RepoList = ({data,
           onSortModelChange={setSort}
           sortingOrder={['desc','asc']}
           disableColumnMenu={true} // Удалить меню
-
-          //autosizeOnMount={true} // авторазмер столбцов
         />
       </Box>
     </>

@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 
-import { CssBaseline, Box, Input, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/system/Unstable_Grid';
-import { GridRowSelectionModel, GridRowId, GridSortModel } from '@mui/x-data-grid';
+import { GridSortModel } from '@mui/x-data-grid';
 
 import {RepoList} from '../RepoList';
 import {RepoDescription} from '../RepoDescription';
@@ -46,7 +46,7 @@ const formattingItem = (item: Item): FormattedItem => {
 };
 
 export function App() {
-//поменять тип
+
   const [activeRepo, setActiveRepo] = useState<FormattedItem | undefined>(undefined);
   const [formattedData, setFormattedData] = useState<FormattedResponse | undefined>(undefined);
 
@@ -60,76 +60,55 @@ export function App() {
     });
 
   useEffect(() => {
-    console.log(q, per_page, page + 1, sort[0].field, sort[0].sort, '"q, per_page, page, sort.field, sort.order"')
     refetch()
   }, [q, per_page, page, sort])
 
   useEffect(() => {
     if(data) {
-      console.log(data, 'data');
       const newItems = data.items.map(formattingItem);
       const newData = {
         total_count: data.total_count,
         items: newItems
       }
       setFormattedData(newData);
-
-      console.log(formattedData, 'formattedData');
     }
-
   }, [data])
-
-  useEffect(() => {
-    console.log(error, 'error');
-  }, [error])
-
-
-  //"API rate limit exceeded for 37.79.16.4. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"
-
-  //мб не нужна (Input)
-  
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-  //   setInputValue(event.target.value)
-  // }
-
-  // поменять тип
 
   return (
     <Grid container className={styles.container}>
       <Grid xs={12} className={styles.header_container}>
         <Header setQ={setQ} isLoading={isLoading}/>
       </Grid>
-        {formattedData === undefined
-          ? <>
-              <GreetingErrorComponent error={error}/>
-              <Box className={styles.greeting_box}>
-                <Typography variant="body2">
-                  Добро пожаловать
-                </Typography>
-              </Box>
-            </>
-          : <Grid container xs={12} columns={3} className={styles.main_container}>
-              <Grid xs={2} className={styles.repoList_container}>
-                <ErrorComponent error={error}/>
-                <RepoList 
-                  data={formattedData}
-                  setActiveRepo={setActiveRepo}
-                  per_page={per_page}
-                  setPer_page={setPer_page}
-                  page={page}
-                  setPage={setPage}
-                  setSort={setSort}
-                  isLoading={isLoading}
-                />
-              </Grid>
-              <Grid xs={1} className={styles.repoDescription_container}>
-                <RepoDescription activeRepo={activeRepo}/>
-              </Grid>
-            </Grid>              
-        } 
+      {formattedData === undefined
+        ? <>
+            <GreetingErrorComponent error={error}/>
+            <Box className={styles.greeting_box}>
+              <Typography variant="body2">
+                Добро пожаловать
+              </Typography>
+            </Box>
+          </>
+        : <Grid container xs={12} columns={3} className={styles.main_container}>
+            <Grid xs={2} className={styles.repoList_container}>
+              <ErrorComponent error={error}/>
+              <RepoList 
+                data={formattedData}
+                setActiveRepo={setActiveRepo}
+                per_page={per_page}
+                setPer_page={setPer_page}
+                page={page}
+                setPage={setPage}
+                setSort={setSort}
+                isLoading={isLoading}
+              />
+            </Grid>
+            <Grid xs={1} className={styles.repoDescription_container}>
+              <RepoDescription activeRepo={activeRepo}/>
+            </Grid>
+          </Grid>              
+      } 
       <Grid xs={12} className={styles.footer}>
       </Grid>
     </Grid>
-
   );
 }

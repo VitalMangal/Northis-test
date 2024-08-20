@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CssBaseline, Box, OutlinedInput, Typography } from '@mui/material';
+import { Box, OutlinedInput } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import styles from './Header.module.scss'
@@ -34,7 +34,7 @@ export const Header = ({ setQ, isLoading }: HeaderPropsType) => {
         type='submit'                
         loading={isLoading}
         variant="contained"
-       >
+      >
         <span>ИСКАТЬ</span>
       </LoadingButton>
     </Box>
