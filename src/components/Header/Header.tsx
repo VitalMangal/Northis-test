@@ -1,21 +1,15 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { CssBaseline, Box, OutlinedInput, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-
 import styles from './Header.module.scss'
+import { HeaderPropsType } from '../../types';
 
-//Поменять тип
-interface PropsType {
-  setQ: any,
-  isLoading: boolean,
-}
+export const Header = ({ setQ, isLoading }: HeaderPropsType) => {
 
-export const Header = ({ setQ, isLoading }: PropsType) => {
+  const [inputValue, setInputValue] = useState<string>('')
 
-  const [inputValue, setInputValue] = useState('')
-
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: React.FormEvent ) => {
     e.preventDefault();
     setQ(inputValue);
   }

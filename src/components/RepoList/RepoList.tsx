@@ -3,30 +3,7 @@ import { DataGrid, GridRowsProp, GridColDef, GridSortModel, GridRowSelectionMode
 import { CssBaseline, Box, Input, TextField, Button, Typography } from '@mui/material';
 
 import styles from './RepoList.module.scss'
-
-
-interface item {
-  id: number,
-  name: string,
-  language: string,
-  forks: number,
-  stargazers_count: number,
-  updated_at: string,
-}
-//Поменять тип
-interface PropsType {
-  data: {
-    items: item[],
-    total_count: number,
-  }
-  setActiveRepo: any,
-  per_page: any,
-  setPer_page: any,
-  page: any,
-  setPage: any,
-  setSort: any,
-  isLoading: boolean,
-}
+import { RepoListPropsType } from '../../types';
 
 export const RepoList = ({data, 
                   setActiveRepo,
@@ -34,7 +11,7 @@ export const RepoList = ({data,
                   page, setPage,
                   setSort,
                   isLoading
-                }:PropsType ) => {
+                }:RepoListPropsType ) => {
   
   const [activeRepoId, setActiveRepoId] = useState<GridRowSelectionModel>([]);
 
@@ -48,28 +25,9 @@ export const RepoList = ({data,
     setPage(paginationModel.page);
   }, [paginationModel])
 
-  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
-
-    switch (sortModel[0].field) {
-      case "forks":
-        setSort({field: "forks", order: sortModel[0].sort})
-        break;
-      case "stargazers_count":
-        setSort({field: "stars", order: sortModel[0].sort})
-        break;
-      case "updated_at":
-        setSort({field: "updated", order: sortModel[0].sort})
-        break;
-      default:
-        setSort({field: '', order: sortModel[0].sort})
-        break;
-    }
-  }, []);
-
-  //поменять тип
-  const handleChange = (newRowSelectionModel: any) => {
+  const handleChange = (newRowSelectionModel: GridRowSelectionModel) => {
     setActiveRepoId(newRowSelectionModel);
-    const active = data.items.find((item: { id: GridRowId }) => item.id === newRowSelectionModel[0]);
+    const active = data.items.find((item) => item.id === newRowSelectionModel[0]);
     setActiveRepo(active);
   }
 

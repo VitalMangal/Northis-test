@@ -7,7 +7,7 @@ import { SerializedError } from '@reduxjs/toolkit';
 import styles from './Error.module.css';
 import { ErrorType } from '../../types';
 
-export const ErrorComponent = ({error}: ErrorType ) => {
+export const GreetingErrorComponent = ({error}: ErrorType ) => {
 
   if (error) {
     if ('status' in error) {
@@ -19,13 +19,7 @@ export const ErrorComponent = ({error}: ErrorType ) => {
           )
         }
       }
-      return (
-        <div className={styles.error}>
-          Произошла ошибка при загрузке данных
-        </div>
-      )
   }
   return  <div className={styles.error}></div>;
-
 };
 

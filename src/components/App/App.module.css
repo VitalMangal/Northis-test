@@ -14,7 +14,7 @@
   .greeting_box {
     display: flex;
     width: 100%;
-    height: calc(100vh - 112px);
+    height: calc(100vh - 132px);
     justify-content: center;
     align-items: center;
 

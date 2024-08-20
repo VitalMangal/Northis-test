@@ -6,50 +6,16 @@ import { GridRowSelectionModel, GridRowId, GridSortModel } from '@mui/x-data-gri
 
 import {RepoList} from '../RepoList';
 import {RepoDescription} from '../RepoDescription';
-import {ErrorComponent} from '../Error';
+import {ErrorComponent, GreetingErrorComponent} from '../Error';
 import {Header} from '../Header';
 
 import { useGetRepositoriesQuery } from '../../store';
 
 import styles from './App.module.css'
+import { FormattedItem, FormattedResponse, Item } from '../../types';
 
 const defaultPerPage = 10;
 const defaultPage = 0; // Ноль из-за особенностей работы DataGrid
-
-  // Тип объекта с инф-цией о репозитории
-type Item = {
-  id: number,
-  name: string,
-  language: string,
-  forks: number,
-  stargazers_count: number,
-  updated_at: string,
-}
-
-type FormattedItem = {
-  id: number;
-  name: string;
-  language: string;
-  forks: number;
-  stars: number;
-  updated: string;
-}
-
-  // Тип положительного ответа от сервера
-type Response = {
-  total_count: number,
-  items: Item[],
-}
-
-  // Тип форматированного положительного ответа от сервера
-  type FormattedResponse = {
-    total_count: number,
-    items: FormattedItem[],
-  }
-
-  //Тип для хранения информации
-type Data = Response | undefined;
-type FormattedData = FormattedResponse | undefined;
 
 //Используется для единообразного оформления даты ДД.ММ.ГГГГ
 const formattingDayAndMonth = (date: number): string => {
@@ -61,8 +27,8 @@ const formattingDayAndMonth = (date: number): string => {
 
 const formattingItem = (item: Item): FormattedItem => {
   const date = new Date(item.updated_at);
-  const day: string | number = formattingDayAndMonth(date.getDate());
-  const month: string | number = formattingDayAndMonth(date.getMonth() + 1);
+  const day = formattingDayAndMonth(date.getDate());
+  const month = formattingDayAndMonth(date.getMonth() + 1);
   const year = date.getFullYear();
   const formattedDate = day + "-" + month + "-" + year;
 
@@ -73,18 +39,20 @@ const formattingItem = (item: Item): FormattedItem => {
     forks: item.forks,
     stars: item.stargazers_count,
     updated: formattedDate,
+    description: item.description,
+    license: item.license,
   }
   return newItem;
 };
 
 export function App() {
 //поменять тип
-  const [activeRepo, setActiveRepo] = useState(null);
-  const [formattedData, setFormattedData] = useState<FormattedData>(undefined);
+  const [activeRepo, setActiveRepo] = useState<FormattedItem | undefined>(undefined);
+  const [formattedData, setFormattedData] = useState<FormattedResponse | undefined>(undefined);
 
-  const [q, setQ] = useState('');
-  const [per_page, setPer_page] = useState(defaultPerPage);
-  const [page, setPage] = useState(defaultPage);
+  const [q, setQ] = useState<string>('');
+  const [per_page, setPer_page] = useState<number>(defaultPerPage);
+  const [page, setPage] = useState<number>(defaultPage);
   const [sort, setSort] = useState<GridSortModel>([{field: '', sort: 'desc'}]);
 
   const { data, error, isLoading, refetch } = useGetRepositoriesQuery({
@@ -132,11 +100,14 @@ export function App() {
         <Header setQ={setQ} isLoading={isLoading}/>
       </Grid>
         {formattedData === undefined
-          ? <Box className={styles.greeting_box}>
-              <Typography variant="body2">
-                Добро пожаловать
-              </Typography>
-            </Box>
+          ? <>
+              <GreetingErrorComponent error={error}/>
+              <Box className={styles.greeting_box}>
+                <Typography variant="body2">
+                  Добро пожаловать
+                </Typography>
+              </Box>
+            </>
           : <Grid container xs={12} columns={3} className={styles.main_container}>
               <Grid xs={2} className={styles.repoList_container}>
                 <ErrorComponent error={error}/>

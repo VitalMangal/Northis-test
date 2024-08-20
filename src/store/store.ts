@@ -5,7 +5,6 @@ export const store = configureStore({
   reducer: {
     [repositoriesApi.reducerPath]: repositoriesApi.reducer,
   },
-  // поменять тип
-  middleware: (getDefaultMiddleware: any) => getDefaultMiddleware()
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(repositoriesApi.middleware)
 });

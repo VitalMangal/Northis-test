@@ -1,13 +1,8 @@
 import { Typography } from '@mui/material';
 import styles from './RepoDescription.module.css';
+import { RepoDescriptionPropsType } from '../../types';
 
-//Поменять тип
-interface PropsType {
-  activeRepo: any,
-}
-
-
-export const RepoDescription = ({activeRepo}: PropsType) => {
+export const RepoDescription = ({activeRepo}: RepoDescriptionPropsType) => {
 
   if(!activeRepo) {
     return (
